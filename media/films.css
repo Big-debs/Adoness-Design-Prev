@@ -1,0 +1,24 @@
+.studio-film {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  background: #1d171b;
+  object-fit: contain;
+  cursor: auto;
+}
+.process-visual:has(.studio-film) {
+  height: auto;
+  aspect-ratio: auto;
+  align-self: center;
+}
+.process-visual:has(.studio-film) .process-stamp {
+  pointer-events: none;
+  top: -2rem;
+  bottom: auto;
+}
+.film-room video { align-self: center; box-shadow: 0 14px 48px #20141b2b; }
+.turntable { padding-block: clamp(2rem, 6vw, 6rem); }
+.turntable figcaption { display: flex; align-items: baseline; flex-wrap: wrap; gap: .7rem 1.5rem; padding-top: .7rem; }
+.turntable figcaption span { font: .7rem var(--mono); letter-spacing: .1em; text-transform: uppercase; }
+.turntable figcaption em { font: italic clamp(1.3rem, 3vw, 2.6rem) var(--serif); }

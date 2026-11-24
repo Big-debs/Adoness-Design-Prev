@@ -1210,6 +1210,11 @@
       }
     }
   </style>
+<link rel="stylesheet" href="../media/films.css">
+  <script defer src="../media/films.js"></script>
+<script>try { document.documentElement.dataset.theme = localStorage.getItem("adoness-editorial-theme") === "light" ? "light" : "dark"; } catch { document.documentElement.dataset.theme = "dark"; }</script>
+  <link rel="stylesheet" href="themes.css">
+  <script defer src="preferences.js"></script>
 </head>
 <body>
   <!-- 00. PRELOADER -->
@@ -1263,11 +1268,13 @@
       </div>
 
       <div class="hud-controls">
-        <button type="button" class="hud-pill" id="soundToggle" data-cursor="AUDIO">SOUND: OFF</button>
+        <button type="button" class="hud-pill" id="themeToggle" aria-label="Light theme" aria-pressed="false">Light</button>
+        <button type="button" class="hud-pill" id="soundToggle" aria-label="Play soundtrack" aria-pressed="false" title="Warp and Weft · original soundtrack">Sound off</button>
         <button type="button" class="hud-pill" id="menuOpenBtn" data-cursor="OPEN" data-scramble="MENU">MENU</button>
       </div>
     </div>
   </header>
+  <audio id="studioScore" src="../media/warp-and-weft.mp3" preload="none" loop></audio>
 
   <!-- FULLSCREEN DICH OVERLAY MENU -->
   <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
@@ -1336,6 +1343,11 @@
           </div>
         </div>
       </div>
+
+      <figure class="container turntable" id="turntable">
+        <video class="studio-film" controls muted loop playsinline preload="none" aria-label="The painted bag in rotation" poster="../media/turning-study-poster.jpg" src="../media/turning-study.mp4"></video>
+        <figcaption><span>Motion study</span><em>The painted bag in rotation.</em></figcaption>
+      </figure>
 
       <!-- Kinetic Marquee -->
       <div class="kinetic-marquee" aria-hidden="true">
@@ -1529,7 +1541,7 @@
             Mass-market bags peel after one season. Every Adoness piece is tensioned on wooden jigs, woven by hand, and lined for longevity—or built around a beloved bag you send in for a complete woven rebirth.
           </p>
 
-          <video controls playsinline preload="none" style="width:100%;max-height:360px;background:#171214" poster="../media/making.jpg" aria-label="Weaving animation"><source src="../media/weaving.mp4" type="video/mp4"></video><small>Weaving study · concept film</small><div class="craft-steps">
+          <video class="studio-film" controls muted loop playsinline preload="none" aria-label="A bag being woven in stop motion" poster="../media/weaving-poster.jpg" src="../media/weaving.mp4"></video><small>Weaving study · concept film</small><div class="craft-steps">
             <div class="craft-step">
               <span class="craft-step-num">01 //</span>
               <div>
@@ -2203,7 +2215,7 @@
       heroVp.targetProgress = 1;
       heroButtons.forEach((b, i) => b.classList.toggle("active", i === heroIdx));
       if (heroLabel) scrambleText(heroLabel, heroTitles[heroIdx], 420);
-      playClickTone(340 + heroIdx * 55);
+
     }
 
     heroButtons.forEach((btn) => {
@@ -2314,7 +2326,6 @@
         btn.classList.toggle("active", i === currentSlide);
       });
 
-      playClickTone(280 + currentSlide * 60);
     }
 
     document.getElementById("sliderPrev").addEventListener("click", () => goToLookbookSlide(currentSlide - 1));
@@ -2448,33 +2459,6 @@
     /* =====================================================================
        9. OPTIONAL WEB AUDIO SYNTHESIZER (SOUND: OFF / ON)
        ===================================================================== */
-    let audioCtx = null;
-    let soundOn = false;
-    const soundBtn = document.getElementById("soundToggle");
-
-    function playClickTone(freq = 360) {
-      if (!soundOn || !audioCtx) return;
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.16);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.17);
-    }
-
-    soundBtn.addEventListener("click", () => {
-      soundOn = !soundOn;
-      if (soundOn && !audioCtx) {
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      }
-      soundBtn.textContent = soundOn ? "SOUND: ON" : "SOUND: OFF";
-      playClickTone(520);
-    });
-
     /* =====================================================================
        10. DICH-STYLE INTRO PRELOADER SEQUENCE (000% -> 100%)
        ===================================================================== */

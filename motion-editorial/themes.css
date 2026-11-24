@@ -1,0 +1,23 @@
+:root { color-scheme: dark; }
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #faf6ef;
+  --bg-elev: #fffaf4;
+  --paper: #291e25;
+  --paper-dim: #61535c;
+  --paper-faint: #4c344034;
+  --ink: #fffaf4;
+  --pink: #a50a5a;
+  --ochre: #82501e;
+}
+[data-theme="light"] .hud-header { background: linear-gradient(#faf6eff5, #faf6ef00); }
+[data-theme="light"] :is(.hud-pill,.hero-webgl-frame,.dich-card,.lookbook-stage,.slider-overlay-badge,.makeover-split-control,.kinetic-marquee,.signal-box,.signal-field select option,.custom-cursor.active,#preloader,.menu-overlay) { background: var(--bg-elev); }
+[data-theme="light"] .hud-pill:hover { background: var(--pink); color: #fff; }
+[data-theme="light"] .pre-matrix { color: var(--paper-dim); }
+[data-theme="light"] .tactile-band { --paper: #eee3d1; --ink: #261d24; }
+#themeToggle:focus-visible,#soundToggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@media (max-width: 720px) {
+  .hud-controls { gap: .35rem; }
+  .hud-controls .hud-pill { padding: .52rem .55rem; font-size: .62rem; letter-spacing: .03em; white-space: nowrap; }
+  .hud-inner { gap: .4rem; }
+}

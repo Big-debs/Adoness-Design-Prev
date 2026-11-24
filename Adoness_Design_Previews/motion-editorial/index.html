@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ADONESS™ — Handwoven Bag &amp; Accessories Atelier</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0c0a0d;
+      --bg-elev: #141116;
+      --paper: #f6f2ea;
+      --paper-dim: rgba(246, 242, 234, 0.68);
+      --paper-faint: rgba(246, 242, 234, 0.12);
+      --ink: #141116;
+      --pink: #d91477;
+      --pink-glow: rgba(217, 20, 119, 0.42);
+      --ochre: #c58836;
+      --serif: "Playfair Display", Georgia, serif;
+      --sans: "DM Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: "Space Mono", monospace;
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --scroll: 0%;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--bg);
+      color: var(--paper);
+      font-family: var(--sans);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--paper);
+      overflow-x: hidden;
+      line-height: 1.55;
+      cursor: none;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      body { cursor: auto; }
+      .custom-cursor { display: none !important; }
+    }
+
+    /* Subtle film grain */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      pointer-events: none;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    a, button {
+      color: inherit;
+      text-decoration: none;
+      background: none;
+      border: none;
+      font: inherit;
+      cursor: none;
+    }
+
+    @media (hover: none), (pointer: coarse) {
+      a, button { cursor: pointer; }
+    }
+
+    /* Master Fixed WebGL Canvas Layer */
+    #webgl-master {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 2;
+    }
+
+    .container {
+      width: min(1340px, 92vw);
+      margin-inline: auto;
+    }
+
+    /* =========================================================
+       00. DICH-INSPIRED PRELOADER INTRO
+       ========================================================= */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: #09070a;
+      color: var(--paper);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 2rem 4vw;
+      transition: clip-path 1.1s var(--ease-expo), opacity 0.6s ease 0.55s;
+      clip-path: inset(0 0 0 0);
+    }
+
+    #preloader.done {
+      clip-path: inset(0 0 100% 0);
+      pointer-events: none;
+    }
+
+    .pre-top, .pre-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+
+    .pre-matrix {
+      font-family: var(--mono);
+      font-size: clamp(0.68rem, 1.1vw, 0.82rem);
+      line-height: 1.7;
+      letter-spacing: 0.18em;
+      color: rgba(246, 242, 234, 0.34);
+      max-width: 72ch;
+      user-select: none;
+    }
+
+    .pre-center {
+      display: grid;
+      gap: 1.25rem;
+    }
+
+    .pre-counter-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--paper-faint);
+      padding-bottom: 1rem;
+    }
+
+    .pre-percent {
+      font-family: var(--serif);
+      font-size: clamp(4.2rem, 12vw, 9.5rem);
+      font-weight: 400;
+      line-height: 0.88;
+      letter-spacing: -0.04em;
+    }
+
+    .pre-percent span {
+      font-family: var(--mono);
+      font-size: clamp(1rem, 2vw, 1.6rem);
+      color: var(--pink);
+      margin-left: 0.25rem;
+    }
+
+    .pre-status {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      text-align: right;
+    }
+
+    .pre-bar {
+      width: 100%;
+      height: 2px;
+      background: var(--paper-faint);
+      overflow: hidden;
+    }
+
+    .pre-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--ochre), var(--pink));
+      transition: width 0.08s linear;
+    }
+
+    /* =========================================================
+       CUSTOM MAGNETIC CURSOR
+       ========================================================= */
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 450;
+      pointer-events: none;
+      transform: translate3d(-50%, -50%, 0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: var(--pink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: width 0.35s var(--ease-expo), height 0.35s var(--ease-expo), background 0.25s ease, border 0.25s ease;
+      mix-blend-mode: normal;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .custom-cursor.active {
+      width: 118px;
+      height: 38px;
+      background: rgba(12, 10, 13, 0.88);
+      border: 1px solid var(--pink);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 30px rgba(217, 20, 119, 0.35);
+    }
+
+    .custom-cursor-label {
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .custom-cursor.active .custom-cursor-label {
+      opacity: 1;
+    }
+
+    /* =========================================================
+       TOP HUD HEADER & FULLSCREEN OVERLAY MENU
+       ========================================================= */
+    .scroll-thread {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: var(--scroll);
+      background: var(--pink);
+      z-index: 220;
+    }
+
+    .hud-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      padding: 1.15rem 0;
+      background: linear-gradient(to bottom, rgba(12, 10, 13, 0.86), rgba(12, 10, 13, 0));
+      backdrop-filter: blur(6px);
+    }
+
+    .hud-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-mark {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark sup {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--pink);
+      margin-left: 2px;
+    }
+
+    .hud-telemetry {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+
+    .hud-dot {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--pink);
+      margin-right: 0.45rem;
+      box-shadow: 0 0 10px var(--pink);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.75); }
+    }
+
+    .hud-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .hud-pill {
+      padding: 0.48rem 0.95rem;
+      border: 1px solid var(--paper-faint);
+      border-radius: 999px;
+      background: rgba(20, 17, 22, 0.72);
+      backdrop-filter: blur(10px);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: border-color 0.25s ease, background 0.25s ease, color 0.25s ease;
+    }
+
+    .hud-pill:hover {
+      border-color: var(--pink);
+      background: var(--pink);
+      color: var(--paper);
+    }
+
+    /* Fullscreen DICH-style Menu Drawer */
+    .menu-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 300;
+      background: #0a080c;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 1.5rem 4vw 2.5rem;
+      clip-path: inset(0 0 100% 0);
+      transition: clip-path 0.85s var(--ease-expo);
+      pointer-events: none;
+    }
+
+    .menu-overlay.open {
+      clip-path: inset(0 0 0 0);
+      pointer-events: auto;
+    }
+
+    .menu-overlay-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .menu-nav-list {
+      display: grid;
+      gap: 0.6rem;
+      margin-block: auto;
+    }
+
+    .menu-nav-item {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--paper-faint);
+      transition: padding-left 0.4s var(--ease-expo), color 0.25s ease;
+    }
+
+    .menu-nav-item:hover {
+      padding-left: 1.25rem;
+      color: var(--pink);
+    }
+
+    .menu-nav-idx {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ochre);
+    }
+
+    .menu-nav-title {
+      font-family: var(--serif);
+      font-size: clamp(2.1rem, 5.2vw, 4.4rem);
+      font-weight: 400;
+      line-height: 1.05;
+    }
+
+    .menu-overlay-foot {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      color: var(--paper-dim);
+      text-transform: uppercase;
+    }
+
+    /* =========================================================
+       SECTION 00: HERO WITH INTERACTIVE WEBGL STAGE
+       ========================================================= */
+    .hero-section {
+      min-height: 100vh;
+      padding: 7.5rem 0 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 3rem;
+      align-items: center;
+      margin-block: auto;
+    }
+
+    .index-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ochre);
+      margin-bottom: 1.25rem;
+    }
+
+    .index-tag::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: var(--pink);
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3.1rem, 6.4vw, 5.8rem);
+      font-weight: 400;
+      line-height: 0.93;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--pink);
+    }
+
+    .hero-sub {
+      color: var(--paper-dim);
+      font-size: 1.05rem;
+      max-width: 45ch;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.88rem 1.65rem;
+      border-radius: 999px;
+      background: var(--pink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      transition: transform 0.3s var(--ease-expo), box-shadow 0.3s ease, background 0.25s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 14px 32px rgba(217, 20, 119, 0.35);
+    }
+
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.88rem 1.55rem;
+      border-radius: 999px;
+      border: 1px solid var(--paper-faint);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      transition: border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--paper);
+      background: rgba(246, 242, 234, 0.08);
+    }
+
+    /* Hero WebGL Viewport Target */
+    .hero-webgl-frame {
+      position: relative;
+      border-radius: 6px;
+      border: 1px solid var(--paper-faint);
+      padding: 0.85rem;
+      background: rgba(20, 17, 22, 0.42);
+      backdrop-filter: blur(4px);
+    }
+
+    .webgl-slot {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 4.7;
+      border-radius: 4px;
+      overflow: hidden;
+      /* Transparent so fixed WebGL canvas shows directly inside this exact bounding box */
+      background: transparent;
+    }
+
+    .hero-stage-hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.85rem;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--paper-dim);
+    }
+
+    .hero-switcher {
+      display: flex;
+      gap: 0.45rem;
+    }
+
+    .hero-switcher button {
+      padding: 0.3rem 0.62rem;
+      border: 1px solid var(--paper-faint);
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      transition: all 0.25s ease;
+    }
+
+    .hero-switcher button.active,
+    .hero-switcher button:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--paper);
+    }
+
+    /* Kinetic Dual Marquee */
+    .kinetic-marquee {
+      margin-top: 3rem;
+      border-block: 1px solid var(--paper-faint);
+      padding: 0.9rem 0;
+      overflow: hidden;
+      white-space: nowrap;
+      background: rgba(20, 17, 22, 0.75);
+    }
+
+    .marquee-track {
+      display: inline-flex;
+      gap: 2.5rem;
+      animation: marqueeSlide 26s linear infinite;
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      letter-spacing: 0.03em;
+    }
+
+    .marquee-track span {
+      display: inline-flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .marquee-track span::after {
+      content: "✦";
+      color: var(--pink);
+      font-size: 0.78rem;
+    }
+
+    @keyframes marqueeSlide {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* =========================================================
+       SECTION 01: DICH NUMBERED INTERACTIVE WEBGL CARDS (01 - 04)
+       ========================================================= */
+    .cards-section {
+      padding: 7rem 0;
+      border-bottom: 1px solid var(--paper-faint);
+    }
+
+    .section-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.3rem, 4.4vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.03;
+      letter-spacing: -0.025em;
+    }
+
+    .section-header h2 em {
+      font-style: italic;
+      color: var(--pink);
+    }
+
+    .filter-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-pills button {
+      padding: 0.48rem 0.95rem;
+      border-radius: 999px;
+      border: 1px solid var(--paper-faint);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+      transition: all 0.25s ease;
+    }
+
+    .filter-pills button.active,
+    .filter-pills button:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+    .dich-card-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+    }
+
+    .dich-card {
+      position: relative;
+      border: 1px solid var(--paper-faint);
+      border-radius: 6px;
+      padding: 0.95rem;
+      background: rgba(20, 17, 22, 0.52);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.45s var(--ease-expo), border-color 0.3s ease;
+    }
+
+    .dich-card.hidden {
+      display: none;
+    }
+
+    .dich-card:nth-child(2),
+    .dich-card:nth-child(4) {
+      transform: translateY(2.2rem);
+    }
+
+    .dich-card:hover {
+      border-color: var(--pink);
+      transform: translateY(-6px);
+    }
+
+    .dich-card:nth-child(2):hover,
+    .dich-card:nth-child(4):hover {
+      transform: translateY(calc(2.2rem - 6px));
+    }
+
+    .card-top-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--paper-dim);
+      margin-bottom: 0.75rem;
+    }
+
+    .card-num {
+      color: var(--pink);
+      font-weight: 700;
+    }
+
+    .card-webgl-slot {
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
+    .card-body h3 {
+      font-family: var(--serif);
+      font-size: 1.32rem;
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+    }
+
+    .card-body p {
+      font-size: 0.86rem;
+      color: var(--paper-dim);
+      margin-bottom: 1rem;
+    }
+
+    .card-foot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--paper-faint);
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ochre);
+    }
+
+    .card-action {
+      color: var(--paper);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .card-action:hover {
+      color: var(--pink);
+    }
+
+    /* =========================================================
+       SECTION 02: FULL-BLEED INTERACTIVE WEBGL LOOKBOOK SLIDER
+       ========================================================= */
+    .slider-section {
+      padding: 8.5rem 0 7rem;
+      border-bottom: 1px solid var(--paper-faint);
+    }
+
+    .lookbook-stage {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3.5rem;
+      align-items: center;
+      border: 1px solid var(--paper-faint);
+      border-radius: 8px;
+      padding: 1.5rem;
+      background: rgba(18, 15, 20, 0.62);
+    }
+
+    .slider-webgl-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 12;
+      border-radius: 4px;
+      overflow: hidden;
+      user-select: none;
+    }
+
+    .slider-overlay-badge {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      padding: 0.38rem 0.78rem;
+      background: rgba(12, 10, 13, 0.82);
+      border: 1px solid var(--paper-faint);
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper);
+      pointer-events: none;
+    }
+
+    .makeover-split-control {
+      position: absolute;
+      bottom: 1rem;
+      left: 1rem;
+      right: 1rem;
+      display: none;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 0.6rem 0.9rem;
+      background: rgba(12, 10, 13, 0.88);
+      border: 1px solid var(--pink);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .makeover-split-control.visible {
+      display: flex;
+    }
+
+    .makeover-split-control input[type="range"] {
+      flex: 1;
+      accent-color: var(--pink);
+      cursor: pointer;
+    }
+
+    .slider-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1.8rem;
+    }
+
+    .slider-index-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.14em;
+      color: var(--ochre);
+    }
+
+    .slider-title {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 3.4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.08;
+      margin-bottom: 0.85rem;
+    }
+
+    .slider-desc {
+      color: var(--paper-dim);
+      font-size: 0.98rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .spec-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.85rem;
+      padding-block: 1.1rem;
+      border-block: 1px solid var(--paper-faint);
+    }
+
+    .spec-item span {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+
+    .spec-item strong {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: var(--paper);
+    }
+
+    .slider-nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .slider-dots {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .slider-dots button {
+      padding: 0.42rem 0.75rem;
+      border: 1px solid var(--paper-faint);
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      transition: all 0.25s ease;
+    }
+
+    .slider-dots button.active,
+    .slider-dots button:hover {
+      background: var(--pink);
+      border-color: var(--pink);
+      color: var(--paper);
+    }
+
+    .slider-arrows {
+      display: flex;
+      gap: 0.55rem;
+    }
+
+    .slider-arrows button {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--paper-faint);
+      display: grid;
+      place-items: center;
+      font-size: 1.1rem;
+      transition: all 0.25s ease;
+    }
+
+    .slider-arrows button:hover {
+      background: var(--paper);
+      color: var(--ink);
+      border-color: var(--paper);
+    }
+
+    /* =========================================================
+       SECTION 03: PAPER TACTILE CONTRAST — CRAFT & STORIES
+       ========================================================= */
+    .tactile-band {
+      background: var(--paper);
+      color: var(--ink);
+      padding: 7rem 0;
+      position: relative;
+      z-index: 3;
+    }
+
+    .craft-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .craft-grid h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.06;
+      margin-bottom: 1.1rem;
+    }
+
+    .craft-grid h2 em {
+      font-style: italic;
+      color: var(--pink);
+    }
+
+    .craft-lead {
+      color: #4f4750;
+      max-width: 48ch;
+      margin-bottom: 2rem;
+    }
+
+    .craft-steps {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .craft-step {
+      padding: 1.25rem 1.4rem;
+      border: 1px solid rgba(20, 17, 22, 0.14);
+      border-radius: 4px;
+      background: #fbf8f2;
+      display: grid;
+      grid-template-columns: 3.2rem 1fr;
+      gap: 1rem;
+    }
+
+    .craft-step-num {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--pink);
+      font-weight: 700;
+      padding-top: 0.2rem;
+    }
+
+    .craft-step h3 {
+      font-family: var(--serif);
+      font-size: 1.18rem;
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+
+    .craft-step p {
+      font-size: 0.9rem;
+      color: #534b54;
+    }
+
+    .craft-diagram {
+      position: relative;
+      border: 1px solid rgba(20, 17, 22, 0.16);
+      border-radius: 6px;
+      padding: 2.2rem;
+      background: #efe8da;
+    }
+
+    .rotating-stamp {
+      position: absolute;
+      top: -1.8rem;
+      right: -1.2rem;
+      width: 114px;
+      height: 114px;
+      border-radius: 50%;
+      background: var(--paper);
+      border: 1px solid var(--ink);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 14px 28px rgba(20, 17, 22, 0.16);
+    }
+
+    .rotating-stamp svg {
+      width: 98px;
+      height: 98px;
+      fill: var(--ink);
+      font-family: var(--mono);
+      font-size: 8.4px;
+      letter-spacing: 2px;
+    }
+
+    .quote-card {
+      margin-top: 2rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid rgba(20, 17, 22, 0.15);
+    }
+
+    .quote-card blockquote {
+      font-family: var(--serif);
+      font-size: 1.35rem;
+      line-height: 1.38;
+      margin-bottom: 0.9rem;
+    }
+
+    .quote-card cite {
+      font-style: normal;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #5b535c;
+    }
+
+    /* =========================================================
+       SECTION 04: DICH "DROP YOUR SIGNAL / INSPIRE NEXT WEAVE"
+       ========================================================= */
+    .signal-section {
+      padding: 7rem 0 4rem;
+      background: var(--bg);
+      position: relative;
+      z-index: 3;
+    }
+
+    .signal-box {
+      border: 1px solid var(--paper-faint);
+      border-radius: 8px;
+      padding: clamp(2rem, 4vw, 3.8rem);
+      background: linear-gradient(145deg, rgba(28, 20, 26, 0.9), rgba(12, 10, 13, 0.95));
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .signal-copy h2 {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      font-weight: 400;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+
+    .signal-copy h2 em {
+      font-style: italic;
+      color: var(--pink);
+    }
+
+    .signal-copy p {
+      color: var(--paper-dim);
+      max-width: 44ch;
+      margin-bottom: 1.6rem;
+    }
+
+    .signal-meta {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ochre);
+    }
+
+    .signal-form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .signal-field {
+      display: grid;
+      gap: 0.35rem;
+    }
+
+    .signal-field label {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+    }
+
+    .signal-field input,
+    .signal-field select,
+    .signal-field textarea {
+      width: 100%;
+      padding: 0.82rem 0.95rem;
+      background: rgba(246, 242, 234, 0.04);
+      border: 1px solid var(--paper-faint);
+      border-radius: 4px;
+      color: var(--paper);
+      font: inherit;
+      transition: border-color 0.25s ease;
+    }
+
+    .signal-field input:focus,
+    .signal-field select:focus,
+    .signal-field textarea:focus {
+      outline: none;
+      border-color: var(--pink);
+    }
+
+    .signal-field select option {
+      background: #141116;
+      color: var(--paper);
+    }
+
+    footer {
+      border-top: 1px solid var(--paper-faint);
+      padding: 2.2rem 0;
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--paper-dim);
+      background: var(--bg);
+      position: relative;
+      z-index: 3;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a:hover {
+      color: var(--pink);
+    }
+
+    @media (max-width: 1040px) {
+      .hero-layout,
+      .lookbook-stage,
+      .craft-grid,
+      .signal-box {
+        grid-template-columns: 1fr;
+      }
+
+      .dich-card-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dich-card:nth-child(2),
+      .dich-card:nth-child(4) {
+        transform: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .hud-telemetry {
+        display: none;
+      }
+
+      .dich-card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 00. PRELOADER -->
+  <div id="preloader" role="status" aria-live="polite">
+    <div class="pre-top">
+      <span>ADNS_ATELIER // WEBGL_ENGINE_V2.6</span>
+      <span>HANDWOVEN BAGS &amp; MAKEOVERS</span>
+    </div>
+
+    <div class="pre-matrix" id="preMatrix" aria-hidden="true">
+      TBWC ONL: EAW/ PRS/ WEFT_TENSION_CALIBRATING // CORD_GAUGE_04MM // BRASS_HARDWARE_LOCK // ONE_OF_ONE_EDITION //
+    </div>
+
+    <div class="pre-center">
+      <div class="pre-counter-row">
+        <div class="pre-percent"><strong id="preNum">000</strong><span>%</span></div>
+        <div class="pre-status" id="preStatus">WARPING LOOM TEXTURES...</div>
+      </div>
+      <div class="pre-bar">
+        <div class="pre-bar-fill" id="preBarFill"></div>
+      </div>
+    </div>
+
+    <div class="pre-bottom">
+      <span>LAGOS • IBADAN • WORLDWIDE</span>
+      <span>@ADONESSDESIGNS</span>
+    </div>
+  </div>
+
+  <!-- CUSTOM MAGNETIC CURSOR -->
+  <div class="custom-cursor" id="customCursor" aria-hidden="true">
+    <span class="custom-cursor-label" id="cursorLabel">DISCOVER</span>
+  </div>
+
+  <!-- SCROLL PROGRESS THREAD -->
+  <div class="scroll-thread" aria-hidden="true"></div>
+
+  <!-- FIXED MASTER WEBGL CANVAS (RENDERS HERO, CARDS & SLIDER) -->
+  <canvas id="webgl-master" aria-hidden="true"></canvas>
+
+  <!-- PERSISTENT HUD HEADER -->
+  <header class="hud-header">
+    <div class="container hud-inner">
+      <a href="#index" class="brand-lockup" data-cursor="INDEX">
+        <span class="brand-mark">Adoness<sup>TM</sup></span>
+      </a>
+
+      <div class="hud-telemetry">
+        <span><i class="hud-dot"></i>00. INDEX // ATELIER LIVE</span>
+        <span id="hudCoords">X . 0000 // Y . 0000</span>
+      </div>
+
+      <div class="hud-controls">
+        <button type="button" class="hud-pill" id="soundToggle" data-cursor="AUDIO">SOUND: OFF</button>
+        <button type="button" class="hud-pill" id="menuOpenBtn" data-cursor="OPEN" data-scramble="MENU">MENU</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- FULLSCREEN DICH OVERLAY MENU -->
+  <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
+    <div class="menu-overlay-top">
+      <span class="brand-mark">Adoness<sup>TM</sup> // NAVIGATION</span>
+      <button type="button" class="hud-pill" id="menuCloseBtn" data-cursor="CLOSE">CLOSE [X]</button>
+    </div>
+
+    <nav class="menu-nav-list" aria-label="Fullscreen index">
+      <a href="#index" class="menu-nav-item" data-menu-link>
+        <span class="menu-nav-idx">00.</span>
+        <span class="menu-nav-title">Index &amp; WebGL Stage</span>
+      </a>
+      <a href="#archive" class="menu-nav-item" data-menu-link>
+        <span class="menu-nav-idx">01.</span>
+        <span class="menu-nav-title">Numbered Silhouettes</span>
+      </a>
+      <a href="#lookbook" class="menu-nav-item" data-menu-link>
+        <span class="menu-nav-idx">02.</span>
+        <span class="menu-nav-title">Interactive Lookbook &amp; Makeover</span>
+      </a>
+      <a href="#craft" class="menu-nav-item" data-menu-link>
+        <span class="menu-nav-idx">03.</span>
+        <span class="menu-nav-title">Slow Craft &amp; Stories</span>
+      </a>
+      <a href="#signal" class="menu-nav-item" data-menu-link>
+        <span class="menu-nav-idx">04.</span>
+        <span class="menu-nav-title">Drop Your Signal / Commission</span>
+      </a>
+    </nav>
+
+    <div class="menu-overlay-foot">
+      <span>HANDWOVEN BAGS • STRUCTURED TOTES • BAG MAKEOVERS</span>
+      <span>@ADONESSDESIGNS — NIGERIA</span>
+    </div>
+  </div>
+
+  <div class="page-shell">
+    <!-- =======================================================
+         00. HERO SECTION
+         ======================================================= -->
+    <section id="index" class="hero-section">
+      <div class="container hero-layout">
+        <div>
+          <span class="index-tag" data-scramble="00. INDEX // HANDWOVEN BAG ATELIER">00. INDEX // HANDWOVEN BAG ATELIER</span>
+          <h1 class="hero-title">Woven <em>by hand.</em><br>Carried as art.</h1>
+          <p class="hero-sub">
+            One-of-one handwoven totes, architectural dome clutches, and bespoke bag makeovers crafted strand by strand on wooden tension frames.
+          </p>
+          <div class="hero-cta-row">
+            <a href="#lookbook" class="btn-primary" data-cursor="EXPLORE" data-scramble="DISCOVER LOOKBOOK">DISCOVER LOOKBOOK</a>
+            <a href="#signal" class="btn-ghost" data-cursor="COMMISSION" data-scramble="REQUEST A MAKEOVER">REQUEST A MAKEOVER</a>
+          </div>
+        </div>
+
+        <div class="hero-webgl-frame">
+          <div class="webgl-slot" id="heroWebglSlot" data-cursor="DISCOVER" title="Move cursor to ripple weave · Click to morph bag"></div>
+          <div class="hero-stage-hud">
+            <span id="heroSlideLabel">01 // CRIMSON BASKETWEAVE TOTE</span>
+            <div class="hero-switcher" role="tablist" aria-label="Switch hero bag">
+              <button type="button" class="active" data-hero-idx="0">01</button>
+              <button type="button" data-hero-idx="1">02</button>
+              <button type="button" data-hero-idx="2">03</button>
+              <button type="button" data-hero-idx="3">04</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kinetic Marquee -->
+      <div class="kinetic-marquee" aria-hidden="true">
+        <div class="marquee-track">
+          <span>Future Mode of Handwoven Bags</span>
+          <span>One-of-One Silhouettes</span>
+          <span>Bespoke Bag Makeovers &amp; Frame Restorations</span>
+          <span>Braided Cotton Cord, Raffia &amp; Brass</span>
+          <span>Hand-Stitched Structured Linings</span>
+          <span>Future Mode of Handwoven Bags</span>
+          <span>One-of-One Silhouettes</span>
+          <span>Bespoke Bag Makeovers &amp; Frame Restorations</span>
+          <span>Braided Cotton Cord, Raffia &amp; Brass</span>
+          <span>Hand-Stitched Structured Linings</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         01. NUMBERED INTERACTIVE WEBGL CARDS (01 - 04)
+         ======================================================= -->
+    <section id="archive" class="cards-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="index-tag" data-scramble="01. ARCHIVE // EDITIONS">01. ARCHIVE // EDITIONS</span>
+            <h2>Selected <em>Weaves &amp; Forms</em></h2>
+          </div>
+
+          <div class="filter-pills" role="tablist" aria-label="Filter silhouettes">
+            <button type="button" class="active" data-filter="all">ALL [04]</button>
+            <button type="button" data-filter="tote">TOTES</button>
+            <button type="button" data-filter="clutch">CLUTCHES</button>
+            <button type="button" data-filter="makeover">MAKEOVERS</button>
+          </div>
+        </div>
+
+        <div class="dich-card-grid">
+          <!-- Card 01 -->
+          <article class="dich-card" data-category="tote">
+            <div class="card-top-meta">
+              <span class="card-num">01 / 04</span>
+              <span>CORD_04MM // TOTE</span>
+            </div>
+            <div class="card-webgl-slot" id="cardSlot0" data-cursor="RIPPLE"></div>
+            <div class="card-body">
+              <h3>Crimson Basketweave Tote</h3>
+              <p>Double-walled magenta &amp; plum braided cord built to stand upright under daily weight.</p>
+              <div class="card-foot">
+                <span>LEAD: 2–3 WKS</span>
+                <a href="#signal" class="card-action" data-prefill="Custom Crimson Basketweave Tote">COMMISSION &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 02 -->
+          <article class="dich-card" data-category="tote">
+            <div class="card-top-meta">
+              <span class="card-num">02 / 04</span>
+              <span>RAFFIA // CARRYALL</span>
+            </div>
+            <div class="card-webgl-slot" id="cardSlot1" data-cursor="RIPPLE"></div>
+            <div class="card-body">
+              <h3>Ochre Raffia Carryall</h3>
+              <p>Tightly plaited raw raffia body anchored by dark espresso leather handles &amp; brass rivets.</p>
+              <div class="card-foot">
+                <span>LEAD: 2–3 WKS</span>
+                <a href="#signal" class="card-action" data-prefill="Custom Ochre Raffia Carryall">COMMISSION &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 03 -->
+          <article class="dich-card" data-category="clutch">
+            <div class="card-top-meta">
+              <span class="card-num">03 / 04</span>
+              <span>FRAME // EVENING</span>
+            </div>
+            <div class="card-webgl-slot" id="cardSlot2" data-cursor="RIPPLE"></div>
+            <div class="card-body">
+              <h3>Indigo Kiss-Lock Clutch</h3>
+              <p>Herringbone midnight cord woven seamlessly over a concealed antique-brass dome clasp.</p>
+              <div class="card-foot">
+                <span>LEAD: 2 WKS</span>
+                <a href="#signal" class="card-action" data-prefill="Custom Indigo Kiss-Lock Clutch">COMMISSION &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 04 -->
+          <article class="dich-card" data-category="makeover">
+            <div class="card-top-meta">
+              <span class="card-num">04 / 04</span>
+              <span>REVIVAL // MAKEOVER</span>
+            </div>
+            <div class="card-webgl-slot" id="cardSlot3" data-cursor="RIPPLE"></div>
+            <div class="card-body">
+              <h3>90s Box Bag Re-Woven</h3>
+              <p>Peeling vintage shell stripped down, reinforced, and over-woven in geometric crimson &amp; bone.</p>
+              <div class="card-foot">
+                <span>CLIENT FRAME</span>
+                <a href="#signal" class="card-action" data-prefill="Bag Makeover Service">SEND BAG &rarr;</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         02. FULL-BLEED INTERACTIVE WEBGL LOOKBOOK SLIDER
+         ======================================================= -->
+    <section id="lookbook" class="slider-section">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="index-tag" data-scramble="02. LOOKBOOK // GLSL SHADER TRANSITIONS">02. LOOKBOOK // GLSL SHADER TRANSITIONS</span>
+            <h2>Interactive <em>Weave &amp; Makeover</em> Slider</h2>
+          </div>
+          <span class="hud-pill" style="pointer-events:none;">DRAG IMAGE OR USE ARROWS</span>
+        </div>
+
+        <div class="lookbook-stage">
+          <div class="slider-webgl-wrap" id="sliderWebglSlot" data-cursor="DRAG">
+            <div class="slider-overlay-badge" id="sliderBadge">WEBGL_DISPLACEMENT // ACTIVE</div>
+            <div class="makeover-split-control" id="makeoverSplitBox">
+              <span>WORN SHELL</span>
+              <input type="range" id="makeoverRange" min="0" max="100" value="65" aria-label="Before and after bag makeover wipe" />
+              <span>RE-WOVEN</span>
+            </div>
+          </div>
+
+          <div class="slider-info">
+            <div>
+              <div class="slider-index-bar">
+                <span id="sliderCounter">SLIDE 01 / 04</span>
+                <span id="sliderCode">EDITION // PR0_01</span>
+              </div>
+              <h3 class="slider-title" id="sliderTitle">The Crimson Basketweave Tote</h3>
+              <p class="slider-desc" id="sliderDesc">
+                Engineered with a rigid double-wall cord matrix so the bag maintains crisp architectural lines without collapsing when loaded.
+              </p>
+
+              <div class="spec-grid">
+                <div class="spec-item">
+                  <span>MATERIAL MATRIX</span>
+                  <strong id="specMaterial">4mm Braided Cotton Cord</strong>
+                </div>
+                <div class="spec-item">
+                  <span>INTERIOR &amp; CLASP</span>
+                  <strong id="specHardware">Raw Twill + Hidden Magnet</strong>
+                </div>
+                <div class="spec-item">
+                  <span>DIMENSIONS</span>
+                  <strong id="specSize">32cm × 26cm × 13cm</strong>
+                </div>
+                <div class="spec-item">
+                  <span>AVAILABILITY</span>
+                  <strong id="specAvail">Made to Order (1 of 1)</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-nav-row">
+              <div class="slider-dots" role="tablist" aria-label="Lookbook slides">
+                <button type="button" class="active" data-slide-btn="0">01</button>
+                <button type="button" data-slide-btn="1">02</button>
+                <button type="button" data-slide-btn="2">03</button>
+                <button type="button" data-slide-btn="3">04</button>
+              </div>
+
+              <div class="slider-arrows">
+                <button type="button" id="sliderPrev" aria-label="Previous slide" data-cursor="PREV">&#8592;</button>
+                <button type="button" id="sliderNext" aria-label="Next slide" data-cursor="NEXT">&#8594;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         03. TACTILE PAPER CONTRAST — PROCESS & COLLECTOR STORY
+         ======================================================= -->
+    <section id="craft" class="tactile-band">
+      <div class="container craft-grid">
+        <div>
+          <span class="index-tag" style="color:#8b5a19;" data-scramble="03. METHODOLOGY // SLOW ATELIER">03. METHODOLOGY // SLOW ATELIER</span>
+          <h2>From raw cord to <em>sculpted form.</em></h2>
+          <p class="craft-lead">
+            Mass-market bags peel after one season. Every Adoness piece is tensioned on wooden jigs, woven by hand, and lined for longevity—or built around a beloved bag you send in for a complete woven rebirth.
+          </p>
+
+          <video controls playsinline preload="none" style="width:100%;max-height:360px;background:#171214" poster="../media/making.jpg" aria-label="Weaving animation"><source src="../media/weaving.mp4" type="video/mp4"></video><small>Weaving study · concept film</small><div class="craft-steps">
+            <div class="craft-step">
+              <span class="craft-step-num">01 //</span>
+              <div>
+                <h3>Cord &amp; Raffia Pairing</h3>
+                <p>Heavy cotton cords, natural raffia, and metallic threads are tested for tensile firmness and color harmony.</p>
+              </div>
+            </div>
+            <div class="craft-step">
+              <span class="craft-step-num">02 //</span>
+              <div>
+                <h3>Jig Tension &amp; Panel Weaving</h3>
+                <p>Interlocking rows are pulled to uniform tension so corners stay sharp and walls hold architectural posture.</p>
+              </div>
+            </div>
+            <div class="craft-step">
+              <span class="craft-step-num">03 //</span>
+              <div>
+                <h3>Bag Makeovers &amp; Frame Rescue</h3>
+                <p>Peeling faux-leather bags are stripped to their structural core and re-skinned in bespoke handwoven panels.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="craft-diagram">
+          <div class="rotating-stamp" id="rotatingStamp" aria-hidden="true">
+            <svg viewBox="0 0 100 100">
+              <defs>
+                <path id="stampCircle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0" />
+              </defs>
+              <text>
+                <textPath href="#stampCircle">ONE OF ONE • HANDWOVEN BAGS •</textPath>
+              </text>
+            </svg>
+          </div>
+
+          <span class="index-tag" style="color:#8b5a19;">ATELIER TELEMETRY // SPECIFICATIONS</span>
+          <h3 style="font-family:var(--serif); font-size:1.75rem; font-weight:400; margin-bottom:0.75rem;">
+            Zero factory molds. Zero synthetic peel.
+          </h3>
+          <p style="font-size:0.94rem; color:#4f4750;">
+            Whether commissioning a custom evening clutch to match an event ensemble or reviving a favorite everyday tote, every stitch is logged to your brief.
+          </p>
+
+          <div class="quote-card">
+            <blockquote>
+              “I nearly discarded a structured bag whose faux leather had peeled completely. Adoness stripped and re-wove it in deep plum and magenta cord—now everyone asks where it was made.”
+            </blockquote>
+            <cite>TOMIWA ADEBAYO — CUSTOM BAG MAKEOVER // LAGOS</cite>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         04. DICH "DROP YOUR SIGNAL / INSPIRE OUR NEXT WEAVE"
+         ======================================================= -->
+    <section id="signal" class="signal-section">
+      <div class="container">
+        <div class="signal-box">
+          <div class="signal-copy">
+            <span class="index-tag" data-scramble="04. SIGNAL // COMMISSION BRIEF">04. SIGNAL // COMMISSION BRIEF</span>
+            <h2>Inspire our next <em>woven edition.</em></h2>
+            <p>
+              We’re not here to mass-produce—we’re here to weave pieces worth keeping. Drop your signal for a custom silhouette, a color study, or a bag makeover.
+            </p>
+            <div class="signal-meta">
+              STATUS: ACCEPTING BESPOKE SLOTS // RESPONSE &lt; 48 HRS
+            </div>
+          </div>
+
+          <form class="signal-form" id="signalForm">
+            <div class="signal-field">
+              <label for="sigName">NAME:</label>
+              <input id="sigName" name="name" type="text" placeholder="e.g. Amara Nwosu" required />
+            </div>
+            <div class="signal-field">
+              <label for="sigContact">EMAIL OR INSTAGRAM HANDLE:</label>
+              <input id="sigContact" name="contact" type="text" placeholder="e.g. @amara.style or amara@domain.com" required />
+            </div>
+            <div class="signal-field">
+              <label for="sigType">SILHOUETTE / MAKEOVER WORLD:</label>
+              <select id="sigType" name="type">
+                <option value="Custom Structured Tote">Custom Structured Tote</option>
+                <option value="Bespoke Kiss-Lock / Evening Clutch">Bespoke Kiss-Lock / Evening Clutch</option>
+                <option value="Bag Makeover (Re-Weave Existing Bag)">Bag Makeover (Re-Weave Existing Bag)</option>
+                <option value="Colorway / Collection Concept">Colorway / Collection Concept</option>
+              </select>
+            </div>
+            <div class="signal-field">
+              <label for="sigNotes">COLOR PALETTE, DIMENSIONS, OR BAG CONDITION:</label>
+              <textarea id="sigNotes" name="notes" rows="3" placeholder="Share your preferred cord colors, handle drop, or describe the bag you want revived..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" data-cursor="TRANSMIT">SEND SIGNAL &rarr;</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container footer-inner">
+        <span>&copy; 2026 ADONESS™ DESIGNS — HANDWOVEN BAG ATELIER.</span>
+        <div class="footer-links">
+          <a href="#index">00. INDEX</a>
+          <a href="#archive">01. ARCHIVE</a>
+          <a href="#lookbook">02. LOOKBOOK</a>
+          <a href="https://instagram.com/adonessdesigns" target="_blank" rel="noreferrer">@ADONESSDESIGNS</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    /* =====================================================================
+       1. SCRAMBLE TEXT ENGINE (DICH-INSPIRED GLYPH DECODE)
+       ===================================================================== */
+    const GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789//_✦";
+
+    function scrambleText(el, finalStr, duration = 520) {
+      if (!el) return;
+      const start = performance.now();
+      const len = finalStr.length;
+
+      function frame(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const revealCount = Math.floor(progress * len);
+        let out = "";
+        for (let i = 0; i < len; i++) {
+          const ch = finalStr[i];
+          if (ch === " " || ch === "\n") {
+            out += ch;
+          } else if (i < revealCount) {
+            out += ch;
+          } else {
+            out += GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+          }
+        }
+        el.textContent = out;
+        if (progress < 1) requestAnimationFrame(frame);
+        else el.textContent = finalStr;
+      }
+      requestAnimationFrame(frame);
+    }
+
+    document.querySelectorAll("[data-scramble]").forEach((el) => {
+      const original = el.dataset.scramble || el.textContent;
+      el.addEventListener("mouseenter", () => scrambleText(el, original, 420));
+    });
+
+    /* =====================================================================
+       2. PROCEDURAL HIGH-DETAIL WOVEN BAG TEXTURE SYNTHESIZER
+          Generates rich tactile cord, raffia, clasp & makeover textures
+          uploaded directly into WebGL sampler2D units.
+       ===================================================================== */
+    function createWovenBagTexture(variant) {
+      const w = 900;
+      const h = 1125;
+      const c = document.createElement("canvas");
+      c.width = w;
+      c.height = h;
+      const ctx = c.getContext("2d");
+
+      // Helper: Draw realistic interlocking over-under woven grid
+      function drawWeaveGrid(x, y, bw, bh, cols, rows, c1, c2, accentRow = -1, c3 = "#f6f2ea") {
+        const cw = bw / cols;
+        const ch = bh / rows;
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(x, y, bw, bh, 26);
+        ctx.clip();
+
+        ctx.fillStyle = "#120d11";
+        ctx.fillRect(x, y, bw, bh);
+
+        for (let r = 0; r < rows; r++) {
+          for (let col = 0; col < cols; col++) {
+            const px = x + col * cw;
+            const py = y + r * ch;
+            const isOver = (r + col) % 2 === 0;
+            const rowColor = (r === accentRow || r === accentRow + 1) ? c3 : (isOver ? c1 : c2);
+
+            const grad = isOver
+              ? ctx.createLinearGradient(px, py, px + cw, py)
+              : ctx.createLinearGradient(px, py, px, py + ch);
+
+            grad.addColorStop(0, "rgba(0,0,0,0.42)");
+            grad.addColorStop(0.25, rowColor);
+            grad.addColorStop(0.55, rowColor);
+            grad.addColorStop(1, "rgba(0,0,0,0.48)");
+
+            ctx.fillStyle = grad;
+            ctx.beginPath();
+            ctx.roundRect(px + 1.5, py + 1.5, cw - 3, ch - 3, 6);
+            ctx.fill();
+
+            // Subtle fiber twist highlight
+            ctx.strokeStyle = "rgba(255,255,255,0.14)";
+            ctx.lineWidth = 1.2;
+            ctx.beginPath();
+            if (isOver) {
+              ctx.moveTo(px + 4, py + ch * 0.35);
+              ctx.lineTo(px + cw - 4, py + ch * 0.65);
+            } else {
+              ctx.moveTo(px + cw * 0.35, py + 4);
+              ctx.lineTo(px + cw * 0.65, py + ch - 4);
+            }
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
+      }
+
+      if (variant === 0) {
+        // 01: Crimson & Plum Basketweave Structured Tote
+        const bg = ctx.createRadialGradient(w * 0.5, h * 0.42, 60, w * 0.5, h * 0.5, w * 0.85);
+        bg.addColorStop(0, "#3b182a");
+        bg.addColorStop(1, "#120c11");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Braided gold/ochre arch handle
+        ctx.strokeStyle = "#c58836";
+        ctx.lineWidth = 28;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(315, 370);
+        ctx.bezierCurveTo(315, 175, 585, 175, 585, 370);
+        ctx.stroke();
+
+        ctx.strokeStyle = "#f4cf8e";
+        ctx.lineWidth = 6;
+        ctx.setLineDash([14, 14]);
+        ctx.beginPath();
+        ctx.moveTo(315, 370);
+        ctx.bezierCurveTo(315, 175, 585, 175, 585, 370);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Bag body
+        drawWeaveGrid(175, 355, 550, 560, 12, 13, "#d91477", "#6b1340", 5, "#f6f2ea");
+
+        // Brass corner hardware & tag
+        ctx.fillStyle = "#c58836";
+        ctx.beginPath();
+        ctx.arc(450, 405, 14, 0, Math.PI * 2);
+        ctx.fill();
+      } else if (variant === 1) {
+        // 02: Ochre Raw Raffia Architectural Carryall
+        const bg = ctx.createRadialGradient(w * 0.5, h * 0.4, 50, w * 0.5, h * 0.5, w * 0.85);
+        bg.addColorStop(0, "#efe5d3");
+        bg.addColorStop(1, "#cbb899");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Espresso leather handles
+        ctx.strokeStyle = "#3a2316";
+        ctx.lineWidth = 26;
+        ctx.lineCap = "round";
+        ctx.beginPath();
+        ctx.moveTo(300, 385);
+        ctx.bezierCurveTo(300, 185, 600, 185, 600, 385);
+        ctx.stroke();
+
+        // Trapezoid clip for carryall
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(155, 370);
+        ctx.lineTo(745, 370);
+        ctx.lineTo(685, 920);
+        ctx.lineTo(215, 920);
+        ctx.closePath();
+        ctx.clip();
+
+        drawWeaveGrid(150, 370, 600, 555, 14, 15, "#c58836", "#9c6422", 8, "#f6f2ea");
+        ctx.restore();
+
+        // Leather strap tabs
+        ctx.fillStyle = "#3a2316";
+        ctx.fillRect(285, 360, 30, 125);
+        ctx.fillRect(585, 360, 30, 125);
+      } else if (variant === 2) {
+        // 03: Midnight Indigo Herringbone Kiss-Lock Dome Clutch
+        const bg = ctx.createRadialGradient(w * 0.5, h * 0.45, 60, w * 0.5, h * 0.5, w * 0.85);
+        bg.addColorStop(0, "#23314d");
+        bg.addColorStop(1, "#0d121d");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Brass kiss-lock clasp spheres
+        ctx.fillStyle = "#d9a04e";
+        ctx.beginPath();
+        ctx.arc(426, 388, 22, 0, Math.PI * 2);
+        ctx.arc(474, 388, 22, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Dome silhouette clip
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(155, 680);
+        ctx.bezierCurveTo(155, 370, 745, 370, 745, 680);
+        ctx.lineTo(720, 845);
+        ctx.lineTo(180, 845);
+        ctx.closePath();
+        ctx.clip();
+
+        drawWeaveGrid(150, 395, 600, 460, 15, 12, "#2f4773", "#1b2944", 6, "#d91477");
+        ctx.restore();
+
+        // Brass arch frame trim
+        ctx.strokeStyle = "#d9a04e";
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.moveTo(155, 680);
+        ctx.bezierCurveTo(155, 370, 745, 370, 745, 680);
+        ctx.stroke();
+      } else if (variant === 3) {
+        // 04: 90s Box Bag Re-Woven (Geometric Color-Block Makeover)
+        const bg = ctx.createRadialGradient(w * 0.5, h * 0.45, 50, w * 0.5, h * 0.5, w * 0.85);
+        bg.addColorStop(0, "#291a26");
+        bg.addColorStop(1, "#100b0f");
+        ctx.fillStyle = bg;
+        ctx.fillRect(0, 0, w, h);
+
+        // Top brass handle
+        ctx.strokeStyle = "#c58836";
+        ctx.lineWidth = 22;
+        ctx.beginPath();
+        ctx.moveTo(335, 375);
+        ctx.bezierCurveTo(335, 235, 565, 235, 565, 375);
+        ctx.stroke();
+
+        // Box bag body
+        drawWeaveGrid(195, 375, 510, 480, 12, 11, "#d91477", "#f6f2ea", 4, "#c58836");
+
+        // Diagonal architectural flap
+        ctx.fillStyle = "rgba(18, 13, 17, 0.85)";
+        ctx.beginPath();
+        ctx.moveTo(195, 375);
+        ctx.lineTo(705, 375);
+        ctx.lineTo(450, 585);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = "#c58836";
+        ctx.lineWidth = 6;
+        ctx.stroke();
+
+        // Clasp medallion
+        ctx.fillStyle = "#d91477";
+        ctx.beginPath();
+        ctx.arc(450, 585, 20, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        // 05: "Before" Worn Peeling Shell Texture for Makeover Split Comparison
+        ctx.fillStyle = "#cfc4b2";
+        ctx.fillRect(0, 0, w, h);
+
+        ctx.strokeStyle = "#8a7f72";
+        ctx.lineWidth = 20;
+        ctx.beginPath();
+        ctx.moveTo(335, 375);
+        ctx.bezierCurveTo(335, 235, 565, 235, 565, 375);
+        ctx.stroke();
+
+        ctx.fillStyle = "#b5a895";
+        ctx.strokeStyle = "#7a6f63";
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.roundRect(195, 375, 510, 480, 24);
+        ctx.fill();
+        ctx.stroke();
+
+        // Scuff / peel marks
+        ctx.strokeStyle = "#6e6357";
+        ctx.lineWidth = 3;
+        for (let i = 0; i < 18; i++) {
+          const sx = 230 + (i * 73) % 430;
+          const sy = 420 + (i * 97) % 390;
+          ctx.beginPath();
+          ctx.moveTo(sx, sy);
+          ctx.lineTo(sx + 28, sy + 18);
+          ctx.lineTo(sx + 12, sy + 42);
+          ctx.stroke();
+        }
+      }
+
+      return c;
+    }
+
+    /* =====================================================================
+       3. UNIFIED MASTER WEBGL SHADER ENGINE
+          Renders the Hero, all 4 Numbered Cards, and the Fullscreen Slider
+          within a single WebGL context using gl.viewport + gl.scissor!
+       ===================================================================== */
+    const glCanvas = document.getElementById("webgl-master");
+    const gl = glCanvas.getContext("webgl", { alpha: true, antialias: true });
+
+    const VERT_SRC = `
+      attribute vec2 aPos;
+      varying vec2 vUv;
+      void main() {
+        vUv = aPos * 0.5 + 0.5;
+        vUv.y = 1.0 - vUv.y;
+        gl_Position = vec4(aPos, 0.0, 1.0);
+      }
+    `;
+
+    const FRAG_SRC = `
+      precision mediump float;
+      varying vec2 vUv;
+      uniform sampler2D uTexA;
+      uniform sampler2D uTexB;
+      uniform float uProgress;
+      uniform float uTime;
+      uniform vec2 uMouse;
+      uniform float uHover;
+      uniform float uSplitMode;
+      uniform float uSplitPos;
+      uniform vec2 uResolution;
+      uniform vec2 uTexAspect;
+
+      // Cover aspect ratio mapping
+      vec2 getCoverUv(vec2 uv, vec2 res, vec2 texDim) {
+        float s = res.x / res.y;
+        float i = texDim.x / texDim.y;
+        vec2 r = s < i ? vec2(texDim.x * res.y / texDim.y, res.y) : vec2(res.x, texDim.y * res.x / texDim.x);
+        vec2 offset = (s < i ? vec2((r.x - res.x) / 2.0, 0.0) : vec2(0.0, (r.y - res.y) / 2.0)) / r;
+        return uv * res / r + offset;
+      }
+
+      void main() {
+        vec2 uv = getCoverUv(vUv, uResolution, uTexAspect);
+
+        // Mouse distance ripple
+        float dist = distance(vUv, uMouse);
+        float ripple = sin(dist * 26.0 - uTime * 4.5) * exp(-dist * 4.2) * 0.024 * uHover;
+
+        // Ambient breathing wave
+        float idleWave = sin(vUv.y * 9.0 + uTime * 1.3) * 0.0025;
+
+        // Liquid displacement transition between Texture A and Texture B
+        float wave = sin(vUv.y * 12.0 + uProgress * 6.2831) * 0.065 * sin(uProgress * 3.14159);
+        vec2 dispA = uv + vec2(ripple + idleWave + wave * uProgress, ripple * 0.7);
+        vec2 dispB = uv + vec2(ripple + idleWave - wave * (1.0 - uProgress), ripple * 0.7);
+
+        // Subtle chromatic edge shift on hover
+        float shift = ripple * 0.65;
+        vec4 colA = vec4(
+          texture2D(uTexA, dispA + vec2(shift, 0.0)).r,
+          texture2D(uTexA, dispA).g,
+          texture2D(uTexA, dispA - vec2(shift, 0.0)).b,
+          1.0
+        );
+
+        vec4 colB = vec4(
+          texture2D(uTexB, dispB + vec2(shift, 0.0)).r,
+          texture2D(uTexB, dispB).g,
+          texture2D(uTexB, dispB - vec2(shift, 0.0)).b,
+          1.0
+        );
+
+        if (uSplitMode > 0.5) {
+          // Before/After makeover wipe mode
+          float edge = smoothstep(uSplitPos - 0.012, uSplitPos + 0.012, vUv.x + ripple * 1.5);
+          vec4 blended = mix(colB, colA, edge);
+          // Glowing divider thread
+          float line = 1.0 - smoothstep(0.0, 0.005, abs(vUv.x - uSplitPos));
+          blended.rgb += vec3(0.85, 0.08, 0.46) * line * 0.9;
+          gl_FragColor = blended;
+        } else {
+          float mixVal = smoothstep(0.0, 1.0, uProgress);
+          gl_FragColor = mix(colA, colB, mixVal);
+        }
+      }
+    `;
+
+    function compileShader(type, src) {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    }
+
+    let program = null;
+    const textures = [];
+
+    if (gl) {
+      program = gl.createProgram();
+      gl.attachShader(program, compileShader(gl.VERTEX_SHADER, VERT_SRC));
+      gl.attachShader(program, compileShader(gl.FRAGMENT_SHADER, FRAG_SRC));
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+
+      const aPos = gl.getAttribLocation(program, "aPos");
+      gl.enableVertexAttribArray(aPos);
+      gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+
+      // Bake 5 procedural textures (4 woven bags + 1 worn shell for makeover split)
+      for (let i = 0; i < 5; i++) {
+        const texCanvas = createWovenBagTexture(i);
+        const tex = gl.createTexture();
+        gl.bindTexture(gl.TEXTURE_2D, tex);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, texCanvas);
+        textures.push(tex);
+      }
+    }
+
+    // Viewports tracked by WebGL
+    const viewports = [
+      {
+        id: "heroWebglSlot",
+        texA: 0,
+        texB: 0,
+        progress: 0,
+        targetProgress: 0,
+        hover: 0,
+        targetHover: 0,
+        mouse: [0.5, 0.5],
+        splitMode: 0,
+        splitPos: 0.65
+      },
+      { id: "cardSlot0", texA: 0, texB: 0, progress: 0, targetProgress: 0, hover: 0, targetHover: 0, mouse: [0.5, 0.5], splitMode: 0, splitPos: 0.5 },
+      { id: "cardSlot1", texA: 1, texB: 1, progress: 0, targetProgress: 0, hover: 0, targetHover: 0, mouse: [0.5, 0.5], splitMode: 0, splitPos: 0.5 },
+      { id: "cardSlot2", texA: 2, texB: 2, progress: 0, targetProgress: 0, hover: 0, targetHover: 0, mouse: [0.5, 0.5], splitMode: 0, splitPos: 0.5 },
+      { id: "cardSlot3", texA: 3, texB: 3, progress: 0, targetProgress: 0, hover: 0, targetHover: 0, mouse: [0.5, 0.5], splitMode: 0, splitPos: 0.5 },
+      {
+        id: "sliderWebglSlot",
+        texA: 0,
+        texB: 0,
+        progress: 0,
+        targetProgress: 0,
+        hover: 0,
+        targetHover: 0,
+        mouse: [0.5, 0.5],
+        splitMode: 0,
+        splitPos: 0.65
+      }
+    ];
+
+    if (!gl) {
+      for (const vp of viewports) {
+        const slot = document.getElementById(vp.id);
+        const art = createWovenBagTexture(vp.texA);
+        art.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none';
+        slot.prepend(art);
+      }
+    }
+    // Attach pointer interactivity to each WebGL slot
+    viewports.forEach((vp) => {
+      const el = document.getElementById(vp.id);
+      if (!el) return;
+      el.addEventListener("mouseenter", () => { vp.targetHover = 1; });
+      el.addEventListener("mouseleave", () => { vp.targetHover = 0; });
+      el.addEventListener("mousemove", (e) => {
+        const rect = el.getBoundingClientRect();
+        vp.mouse[0] = (e.clientX - rect.left) / rect.width;
+        vp.mouse[1] = (e.clientY - rect.top) / rect.height;
+      });
+    });
+
+    function resizeWebGL() {
+      if (!gl) return;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.floor(window.innerWidth * dpr);
+      const h = Math.floor(window.innerHeight * dpr);
+      if (glCanvas.width !== w || glCanvas.height !== h) {
+        glCanvas.width = w;
+        glCanvas.height = h;
+      }
+    }
+    window.addEventListener("resize", resizeWebGL);
+    resizeWebGL();
+
+    const uTexALoc = gl ? gl.getUniformLocation(program, "uTexA") : null;
+    const uTexBLoc = gl ? gl.getUniformLocation(program, "uTexB") : null;
+    const uProgLoc = gl ? gl.getUniformLocation(program, "uProgress") : null;
+    const uTimeLoc = gl ? gl.getUniformLocation(program, "uTime") : null;
+    const uMouseLoc = gl ? gl.getUniformLocation(program, "uMouse") : null;
+    const uHoverLoc = gl ? gl.getUniformLocation(program, "uHover") : null;
+    const uSplitModeLoc = gl ? gl.getUniformLocation(program, "uSplitMode") : null;
+    const uSplitPosLoc = gl ? gl.getUniformLocation(program, "uSplitPos") : null;
+    const uResLoc = gl ? gl.getUniformLocation(program, "uResolution") : null;
+    const uTexAspectLoc = gl ? gl.getUniformLocation(program, "uTexAspect") : null;
+
+    function renderLoop(now) {
+      const t = now * 0.001;
+      if (gl && program) {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        gl.enable(gl.SCISSOR_TEST);
+        gl.clearColor(0, 0, 0, 0);
+        gl.scissor(0, 0, glCanvas.width, glCanvas.height);
+        gl.clear(gl.COLOR_BUFFER_BIT);
+
+        viewports.forEach((vp) => {
+          const el = document.getElementById(vp.id);
+          if (!el) return;
+          const rect = el.getBoundingClientRect();
+          if (rect.width === 0 || rect.height === 0) return;
+          if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+
+          // Smoothly interpolate hover and transition progress
+          vp.hover += (vp.targetHover - vp.hover) * 0.1;
+          vp.progress += (vp.targetProgress - vp.progress) * 0.085;
+
+          if (vp.targetProgress === 1 && vp.progress > 0.992) {
+            vp.texA = vp.texB;
+            vp.progress = 0;
+            vp.targetProgress = 0;
+          }
+
+          const x = Math.floor(rect.left * dpr);
+          const y = Math.floor((window.innerHeight - rect.bottom) * dpr);
+          const w = Math.floor(rect.width * dpr);
+          const h = Math.floor(rect.height * dpr);
+
+          gl.viewport(x, y, w, h);
+          gl.scissor(x, y, w, h);
+
+          gl.activeTexture(gl.TEXTURE0);
+          gl.bindTexture(gl.TEXTURE_2D, textures[vp.texA]);
+          gl.uniform1i(uTexALoc, 0);
+
+          gl.activeTexture(gl.TEXTURE1);
+          gl.bindTexture(gl.TEXTURE_2D, textures[vp.texB]);
+          gl.uniform1i(uTexBLoc, 1);
+
+          gl.uniform1f(uProgLoc, vp.progress);
+          gl.uniform1f(uTimeLoc, t);
+          gl.uniform2f(uMouseLoc, vp.mouse[0], vp.mouse[1]);
+          gl.uniform1f(uHoverLoc, vp.hover);
+          gl.uniform1f(uSplitModeLoc, vp.splitMode);
+          gl.uniform1f(uSplitPosLoc, vp.splitPos);
+          gl.uniform2f(uResLoc, w, h);
+          gl.uniform2f(uTexAspectLoc, 900, 1125);
+
+          gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+        });
+
+        gl.disable(gl.SCISSOR_TEST);
+      }
+      requestAnimationFrame(renderLoop);
+    }
+    requestAnimationFrame(renderLoop);
+
+    /* =====================================================================
+       4. HERO BAG SWITCHER & GLSL MORPH TRIGGER
+       ===================================================================== */
+    const heroTitles = [
+      "01 // CRIMSON BASKETWEAVE TOTE",
+      "02 // OCHRE RAFFIA CARRYALL",
+      "03 // INDIGO KISS-LOCK CLUTCH",
+      "04 // 90S BOX BAG RE-WOVEN"
+    ];
+    let heroIdx = 0;
+    const heroVp = viewports[0];
+    const heroButtons = document.querySelectorAll("[data-hero-idx]");
+    const heroLabel = document.getElementById("heroSlideLabel");
+
+    function switchHeroBag(nextIdx) {
+      heroIdx = (nextIdx + 4) % 4;
+      heroVp.texB = heroIdx;
+      heroVp.progress = 0.01;
+      heroVp.targetProgress = 1;
+      heroButtons.forEach((b, i) => b.classList.toggle("active", i === heroIdx));
+      if (heroLabel) scrambleText(heroLabel, heroTitles[heroIdx], 420);
+      playClickTone(340 + heroIdx * 55);
+    }
+
+    heroButtons.forEach((btn) => {
+      btn.addEventListener("click", () => switchHeroBag(Number(btn.dataset.heroIdx)));
+    });
+
+    document.getElementById("heroWebglSlot").addEventListener("click", () => {
+      switchHeroBag(heroIdx + 1);
+    });
+
+    /* =====================================================================
+       5. FULL-BLEED INTERACTIVE WEBGL LOOKBOOK & MAKEOVER SLIDER
+       ===================================================================== */
+    const slidesData = [
+      {
+        tex: 0,
+        counter: "SLIDE 01 / 04",
+        code: "EDITION // PR0_01",
+        title: "The Crimson Basketweave Tote",
+        desc: "Engineered with a rigid double-wall cord matrix so the bag maintains crisp architectural lines without collapsing when loaded.",
+        material: "4mm Braided Cotton Cord",
+        hardware: "Raw Twill + Hidden Magnet",
+        size: "32cm × 26cm × 13cm",
+        avail: "Made to Order (1 of 1)",
+        isMakeover: false
+      },
+      {
+        tex: 1,
+        counter: "SLIDE 02 / 04",
+        code: "EDITION // PR0_02",
+        title: "Ochre Raffia Architectural Carryall",
+        desc: "Tightly plaited natural raffia panels paired with hand-riveted espresso leather shoulder straps for warm-weather structure.",
+        material: "Hand-Plaited Natural Raffia",
+        hardware: "Veg-Tan Leather + Solid Brass",
+        size: "36cm × 28cm × 14cm",
+        avail: "Made to Order (1 of 1)",
+        isMakeover: false
+      },
+      {
+        tex: 2,
+        counter: "SLIDE 03 / 04",
+        code: "EDITION // PR0_03",
+        title: "Indigo Kiss-Lock Dome Clutch",
+        desc: "Midnight herringbone cord woven directly over a curved brass kiss-lock frame for evening occasions and bridal trousseaus.",
+        material: "Satin & Heavy Cotton Thread",
+        hardware: "Concealed Brass Dome Frame",
+        size: "24cm × 16cm × 8cm",
+        avail: "Custom Colorways Open",
+        isMakeover: false
+      },
+      {
+        tex: 3,
+        counter: "SLIDE 04 / 04",
+        code: "SERVICE // MAKEOVER_LAB",
+        title: "The 90s Box Bag Re-Woven",
+        desc: "Use the interactive wipe on the left to compare a scuffed, peeling shell against its handwoven crimson-and-bone rebirth.",
+        material: "Client Frame + Custom Cord",
+        hardware: "Restored Original Clasp",
+        size: "Built to Your Bag's Frame",
+        avail: "Send Your Bag to Studio",
+        isMakeover: true
+      }
+    ];
+
+    let currentSlide = 0;
+    const sliderVp = viewports[5];
+    const splitBox = document.getElementById("makeoverSplitBox");
+    const makeoverRange = document.getElementById("makeoverRange");
+
+    makeoverRange.addEventListener("input", (e) => {
+      sliderVp.splitPos = Number(e.target.value) / 100;
+    });
+
+    function goToLookbookSlide(idx) {
+      currentSlide = (idx + slidesData.length) % slidesData.length;
+      const item = slidesData[currentSlide];
+      if (!gl) {
+        const fallback = document.querySelector('#sliderWebglSlot canvas');
+        fallback.getContext('2d').drawImage(createWovenBagTexture(item.tex), 0, 0);
+      }
+
+      if (item.isMakeover) {
+        // Set Texture A to the re-woven bag (3) and Texture B to the worn shell (4) for live split wipe
+        sliderVp.texA = 3;
+        sliderVp.texB = 4;
+        sliderVp.splitMode = 1;
+        sliderVp.progress = 0;
+        sliderVp.targetProgress = 0;
+        splitBox.classList.add("visible");
+      } else {
+        sliderVp.splitMode = 0;
+        splitBox.classList.remove("visible");
+        sliderVp.texB = item.tex;
+        sliderVp.progress = 0.01;
+        sliderVp.targetProgress = 1;
+      }
+
+      document.getElementById("sliderCounter").textContent = item.counter;
+      scrambleText(document.getElementById("sliderCode"), item.code, 380);
+      document.getElementById("sliderTitle").textContent = item.title;
+      document.getElementById("sliderDesc").textContent = item.desc;
+      document.getElementById("specMaterial").textContent = item.material;
+      document.getElementById("specHardware").textContent = item.hardware;
+      document.getElementById("specSize").textContent = item.size;
+      document.getElementById("specAvail").textContent = item.avail;
+
+      document.querySelectorAll("[data-slide-btn]").forEach((btn, i) => {
+        btn.classList.toggle("active", i === currentSlide);
+      });
+
+      playClickTone(280 + currentSlide * 60);
+    }
+
+    document.getElementById("sliderPrev").addEventListener("click", () => goToLookbookSlide(currentSlide - 1));
+    document.getElementById("sliderNext").addEventListener("click", () => goToLookbookSlide(currentSlide + 1));
+    document.querySelectorAll("[data-slide-btn]").forEach((btn) => {
+      btn.addEventListener("click", () => goToLookbookSlide(Number(btn.dataset.slideBtn)));
+    });
+
+    // Pointer drag support on the WebGL Lookbook Slider
+    let dragStartX = null;
+    const sliderSlotEl = document.getElementById("sliderWebglSlot");
+    sliderSlotEl.addEventListener("pointerdown", (e) => {
+      if (e.target === makeoverRange) return;
+      dragStartX = e.clientX;
+    });
+    window.addEventListener("pointerup", (e) => {
+      if (dragStartX === null) return;
+      const dx = e.clientX - dragStartX;
+      dragStartX = null;
+      if (Math.abs(dx) > 45) {
+        goToLookbookSlide(currentSlide + (dx < 0 ? 1 : -1));
+      }
+    });
+
+    /* =====================================================================
+       6. ARCHIVE CATEGORY FILTERS & COMMISSION PREFILL
+       ===================================================================== */
+    document.querySelectorAll("[data-filter]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const cat = btn.dataset.filter;
+        document.querySelectorAll(".dich-card").forEach((card) => {
+          card.classList.toggle("hidden", cat !== "all" && card.dataset.category !== cat);
+        });
+      });
+    });
+
+    document.querySelectorAll("[data-prefill]").forEach((link) => {
+      link.addEventListener("click", () => {
+        const notes = document.getElementById("sigNotes");
+        if (notes) {
+          notes.value = `Interested in: ${link.dataset.prefill}. Preferred colorway: `;
+        }
+      });
+    });
+
+    /* =====================================================================
+       7. CUSTOM MAGNETIC CURSOR & HUD TELEMETRY
+       ===================================================================== */
+    const cursor = document.getElementById("customCursor");
+    const cursorLabel = document.getElementById("cursorLabel");
+    const hudCoords = document.getElementById("hudCoords");
+    const stampEl = document.getElementById("rotatingStamp");
+
+    let cx = -100, cy = -100, tx = -100, ty = -100;
+
+    window.addEventListener("mousemove", (e) => {
+      tx = e.clientX;
+      ty = e.clientY;
+      if (hudCoords) {
+        const px = String(Math.floor(e.clientX)).padStart(4, "0");
+        const py = String(Math.floor(e.clientY)).padStart(4, "0");
+        hudCoords.textContent = `X . ${px} // Y . ${py}`;
+      }
+    });
+
+    function animateCursor() {
+      cx += (tx - cx) * 0.2;
+      cy += (ty - cy) * 0.2;
+      cursor.style.transform = `translate3d(${cx}px, ${cy}px, 0) translate(-50%, -50%)`;
+      requestAnimationFrame(animateCursor);
+    }
+    requestAnimationFrame(animateCursor);
+
+    document.querySelectorAll("[data-cursor]").forEach((target) => {
+      target.addEventListener("mouseenter", () => {
+        cursorLabel.textContent = target.dataset.cursor;
+        cursor.classList.add("active");
+      });
+      target.addEventListener("mouseleave", () => {
+        cursor.classList.remove("active");
+      });
+    });
+
+    window.addEventListener("scroll", () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? (window.scrollY / max) * 100 : 0;
+      document.documentElement.style.setProperty("--scroll", `${pct}%`);
+      if (stampEl) {
+        stampEl.style.transform = `rotate(${window.scrollY * 0.08}deg)`;
+      }
+    }, { passive: true });
+
+    /* =====================================================================
+       8. FULLSCREEN OVERLAY MENU & SIGNAL FORM
+       ===================================================================== */
+    const menuOverlay = document.getElementById("menuOverlay");
+    document.getElementById("menuOpenBtn").addEventListener("click", () => {
+      menuOverlay.classList.add("open");
+      menuOverlay.setAttribute("aria-hidden", "false");
+    });
+    document.getElementById("menuCloseBtn").addEventListener("click", () => {
+      menuOverlay.classList.remove("open");
+      menuOverlay.setAttribute("aria-hidden", "true");
+    });
+    document.querySelectorAll("[data-menu-link]").forEach((item) => {
+      item.addEventListener("click", () => {
+        menuOverlay.classList.remove("open");
+        menuOverlay.setAttribute("aria-hidden", "true");
+      });
+    });
+
+    document.getElementById("signalForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      e.target.innerHTML = `
+        <div style="padding:1.6rem; border:1px solid var(--pink); border-radius:4px; background:rgba(217,20,119,0.08);">
+          <div style="font-family:var(--mono); font-size:0.74rem; letter-spacing:0.14em; color:var(--pink); margin-bottom:0.5rem;">
+            SIGNAL_RECEIVED // ATELIER_QUEUE_CONFIRMED
+          </div>
+          <p style="font-family:var(--serif); font-size:1.45rem; margin-bottom:0.4rem;">
+            Your bag brief has been transmitted to Adoness Designs.
+          </p>
+          <p style="font-size:0.9rem; color:var(--paper-dim);">
+            We review custom commissions and makeover requests within 48 hours.
+          </p>
+        </div>
+      `;
+    });
+
+    /* =====================================================================
+       9. OPTIONAL WEB AUDIO SYNTHESIZER (SOUND: OFF / ON)
+       ===================================================================== */
+    let audioCtx = null;
+    let soundOn = false;
+    const soundBtn = document.getElementById("soundToggle");
+
+    function playClickTone(freq = 360) {
+      if (!soundOn || !audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.16);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.17);
+    }
+
+    soundBtn.addEventListener("click", () => {
+      soundOn = !soundOn;
+      if (soundOn && !audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+      soundBtn.textContent = soundOn ? "SOUND: ON" : "SOUND: OFF";
+      playClickTone(520);
+    });
+
+    /* =====================================================================
+       10. DICH-STYLE INTRO PRELOADER SEQUENCE (000% -> 100%)
+       ===================================================================== */
+    const preloader = document.getElementById("preloader");
+    const preNum = document.getElementById("preNum");
+    const preBarFill = document.getElementById("preBarFill");
+    const preStatus = document.getElementById("preStatus");
+    const preMatrix = document.getElementById("preMatrix");
+
+    let countVal = 0;
+    const preInterval = setInterval(() => {
+      countVal += Math.floor(Math.random() * 9) + 4;
+      if (countVal >= 100) {
+        countVal = 100;
+        clearInterval(preInterval);
+        preNum.textContent = "100";
+        preBarFill.style.width = "100%";
+        preStatus.textContent = "LOOM READY // ENTERING ATELIER";
+        scrambleText(preMatrix, "ADNS_SYS // READY // HANDWOVEN BAGS & BESPOKE MAKEOVERS // @ADONESSDESIGNS", 350);
+        setTimeout(() => {
+          preloader.classList.add("done");
+        }, 420);
+      } else {
+        preNum.textContent = String(countVal).padStart(3, "0");
+        preBarFill.style.width = `${countVal}%`;
+        if (countVal > 55) preStatus.textContent = "COMPILING GLSL WEAVE SHADERS...";
+        // Scramble matrix readout during boot
+        let stream = "";
+        for (let i = 0; i < 68; i++) {
+          stream += i % 6 === 5 ? " " : GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+        }
+        preMatrix.textContent = stream;
+      }
+    }, 36);
+  </script>
+</body>
+</html>

@@ -11,11 +11,13 @@
   --ochre: #82501e;
 }
 [data-theme="light"] .hud-header { background: linear-gradient(#faf6eff5, #faf6ef00); }
-[data-theme="light"] :is(.hud-pill,.hero-webgl-frame,.dich-card,.lookbook-stage,.slider-overlay-badge,.makeover-split-control,.kinetic-marquee,.signal-box,.signal-field select option,.custom-cursor.active,#preloader,.menu-overlay) { background: var(--bg-elev); }
+[data-theme="light"] :is(.hud-pill,.slider-overlay-badge,.makeover-split-control,.kinetic-marquee,.signal-box,.signal-field select option,.custom-cursor.active,#preloader,.menu-overlay) { background: var(--bg-elev); }
+/* The artwork is drawn on a canvas behind these frames. */
+[data-theme="light"] :is(.hero-webgl-frame,.dich-card,.lookbook-stage) { background: transparent; backdrop-filter: none; }
 [data-theme="light"] .hud-pill:hover { background: var(--pink); color: #fff; }
 [data-theme="light"] .pre-matrix { color: var(--paper-dim); }
 [data-theme="light"] .tactile-band { --paper: #eee3d1; --ink: #261d24; }
-#themeToggle:focus-visible,#soundToggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+#themeToggle:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 @media (max-width: 720px) {
   .hud-controls { gap: .35rem; }
   .hud-controls .hud-pill { padding: .52rem .55rem; font-size: .62rem; letter-spacing: .03em; white-space: nowrap; }

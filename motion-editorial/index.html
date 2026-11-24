@@ -716,6 +716,7 @@
     }
 
     .card-webgl-slot {
+      position: relative;
       width: 100%;
       aspect-ratio: 4 / 5;
       border-radius: 4px;
@@ -1269,12 +1270,10 @@
 
       <div class="hud-controls">
         <button type="button" class="hud-pill" id="themeToggle" aria-label="Light theme" aria-pressed="false">Light</button>
-        <button type="button" class="hud-pill" id="soundToggle" aria-label="Play soundtrack" aria-pressed="false" title="Warp and Weft · original soundtrack">Sound off</button>
         <button type="button" class="hud-pill" id="menuOpenBtn" data-cursor="OPEN" data-scramble="MENU">MENU</button>
       </div>
     </div>
   </header>
-  <audio id="studioScore" src="../media/warp-and-weft.mp3" preload="none" loop></audio>
 
   <!-- FULLSCREEN DICH OVERLAY MENU -->
   <div class="menu-overlay" id="menuOverlay" aria-hidden="true">
@@ -2210,6 +2209,10 @@
 
     function switchHeroBag(nextIdx) {
       heroIdx = (nextIdx + 4) % 4;
+      if (!gl) {
+        const canvas = document.querySelector("#heroWebglSlot canvas");
+        canvas.getContext("2d").drawImage(createWovenBagTexture(heroIdx), 0, 0);
+      }
       heroVp.texB = heroIdx;
       heroVp.progress = 0.01;
       heroVp.targetProgress = 1;
@@ -2456,9 +2459,6 @@
       `;
     });
 
-    /* =====================================================================
-       9. OPTIONAL WEB AUDIO SYNTHESIZER (SOUND: OFF / ON)
-       ===================================================================== */
     /* =====================================================================
        10. DICH-STYLE INTRO PRELOADER SEQUENCE (000% -> 100%)
        ===================================================================== */

@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Adoness Designs: fabric art, hung and handled</title>
+<meta name="description" content="Original hand-painted fabric art, shaped into bags and objects by Adoness Designs.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f1ede6;--fg:#1a1420;--mute:#6b6370;--line:rgba(26,20,32,.2);--pink:#d91477;--serif:'Fraunces',Georgia,serif;--sans:'Instrument Sans',Arial,sans-serif;--rf:#f0e9de;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#150f1b;--fg:#f0e9de;--mute:#a79eac;--line:rgba(240,233,222,.2)}}
+:root[data-theme="dark"]{--bg:#150f1b;--fg:#f0e9de;--mute:#a79eac;--line:rgba(240,233,222,.2)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 70px)}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 17px/1.6 var(--sans)}
+a{color:inherit}img{display:block;max-width:100%}
+:focus-visible{outline:3px solid var(--pink);outline-offset:3px}
+.room{position:fixed;inset:0;z-index:-1;background:#1c1230;transition:background .9s ease}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--rbg,#1c1230);transition:background .9s ease}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(18px,4vw,48px);color:var(--rf);transition:color .9s}
+.logo{font:600 26px/1 var(--serif);text-decoration:none;letter-spacing:-.02em}
+nav{display:flex;gap:26px;align-items:center;font-size:15px}nav a{text-decoration:none}nav a:hover{text-decoration:underline;text-underline-offset:5px}
+nav .cta{border:1.5px solid currentColor;border-radius:99px;padding:9px 18px}
+.hero{min-height:calc(100svh - 70px);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:2vh clamp(18px,4vw,48px) 6vh;color:var(--rf);overflow:hidden}
+.hero h1{font:400 clamp(52px,7.4vw,122px)/.95 var(--serif);letter-spacing:-.045em;margin:0 0 28px;font-variation-settings:"opsz" 144}
+.hero p{max-width:34ch;font-size:19px;margin:0 0 30px;opacity:.88}
+.btn{display:inline-block;background:var(--rf);color:#1c1230;border-radius:99px;padding:14px 26px;font-weight:600;text-decoration:none;transition:transform .2s}.btn:hover{transform:translateY(-2px)}
+.stage{position:relative;height:min(78vh,720px)}
+.hang{position:absolute;top:-40px;transform-origin:50% 0;width:var(--w);left:var(--x);padding-top:var(--drop)}
+.hang::before{content:"";position:absolute;left:50%;bottom:calc(100% - var(--drop));height:120vh;width:1.5px;background:currentColor;opacity:.45}
+.plate{background:#e8e5e2;box-shadow:0 34px 50px -22px rgba(0,0,0,.55);transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out;will-change:transform}
+.plate img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.swing.in{animation:swing 3.4s cubic-bezier(.25,.6,.3,1) both}
+@keyframes swing{0%{transform:rotate(16deg)}18%{transform:rotate(-11deg)}38%{transform:rotate(7deg)}58%{transform:rotate(-4deg)}78%{transform:rotate(1.8deg)}100%{transform:rotate(0)}}
+.ch{min-height:100svh;display:grid;grid-template-columns:minmax(260px,430px) 1fr;align-items:center;gap:6vw;padding:12vh clamp(18px,6vw,100px);color:var(--cf)}
+.ch:nth-of-type(even){grid-template-columns:1fr minmax(260px,430px)}.ch:nth-of-type(even) .hang{order:2}
+.ch .hang{position:relative;left:0;top:-12vh;width:100%;--drop:0px;padding-top:0;margin-top:0}
+.ch .hang::before{bottom:100%;height:60vh}
+.ch h2{font:400 clamp(54px,9vw,150px)/.9 var(--serif);letter-spacing:-.05em;margin:0 0 22px;font-variation-settings:"opsz" 144}
+.ch p{max-width:36ch;font-size:19px;margin:0 0 6px}.ch small{font-size:15px;opacity:.75}
+.sec{padding:clamp(70px,11vw,150px) clamp(18px,6vw,100px)}
+.making{display:grid;grid-template-columns:1.1fr .9fr;gap:6vw;align-items:center}
+.making img{width:100%;aspect-ratio:16/10;object-fit:cover}
+.sec h3{font:400 clamp(38px,5vw,76px)/1 var(--serif);letter-spacing:-.04em;margin:0 0 20px}
+.sec p{color:var(--mute);max-width:46ch}
+ol{list-style:none;padding:0;margin:28px 0 0;border-top:2px dashed var(--line)}
+li{display:grid;grid-template-columns:44px 1fr;padding:16px 0;border-bottom:2px dashed var(--line)}
+li b{font:600 22px var(--serif);color:var(--pink)}li strong{display:block;color:var(--fg)}li span{color:var(--mute)}
+.makeover{background:var(--fg);color:var(--bg);text-align:left}
+.makeover h3{max-width:14ch;font-size:clamp(48px,8vw,130px);line-height:.92}.makeover p{color:inherit;opacity:.8}
+.makeover .btn{background:var(--bg);color:var(--fg)}
+.about{display:grid;grid-template-columns:1.2fr .8fr;gap:7vw;align-items:start}
+.about q{font:400 clamp(30px,3.8vw,56px)/1.15 var(--serif);letter-spacing:-.03em;quotes:"\201C" "\201D"}
+.contact{background:var(--pink);color:#fff;padding:clamp(70px,10vw,130px) clamp(18px,6vw,100px)}
+.contact h3{font:400 clamp(48px,8vw,128px)/.94 var(--serif);letter-spacing:-.05em;margin:0 0 24px}.contact p{max-width:44ch;margin:0}
+footer{padding:26px clamp(18px,6vw,100px);display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between;font-size:14px;color:var(--mute)}
+@media(max-width:820px){nav a:not(.cta){display:none}.hero,.making,.about{grid-template-columns:1fr}.stage{height:118vw}.ch,.ch:nth-of-type(even){grid-template-columns:1fr;padding-top:14vh}.ch:nth-of-type(even) .hang{order:0}.ch .hang{max-width:340px;margin:0 auto}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="room" id="room" aria-hidden="true"></div>
+<header><a class="logo" href="#top">Adoness</a><nav aria-label="Main"><a href="#work">The work</a><a href="#making">The making</a><a href="#about">Bidemi</a><a class="cta" href="#contact">Enquire</a></nav></header>
+<main id="top">
+<section class="hero" data-room="#1c1230" data-fg="#f0e9de" data-dark="#1c1230">
+  <div><h1>Painted futures, woven by hand.</h1><p>Original fabric art shaped into bags and objects, made by hand in Nigeria. Move your cursor across the pieces and they answer.</p><a class="btn" href="#work">See the work</a></div>
+  <div class="stage" id="stage">
+    <div class="hang swing in" style="--w:46%;--x:0%;--drop:90px;animation-delay:.1s"><div class="plate"><img src="../media/market.jpg" alt="Mother and child beneath a fruit basket"></div></div>
+    <div class="hang swing in" style="--w:36%;--x:42%;--drop:20px;animation-delay:.35s"><div class="plate"><img src="../media/spiral.jpg" alt="Cobalt and terracotta spiral tote"></div></div>
+    <div class="hang swing in" style="--w:38%;--x:62%;--drop:170px;animation-delay:.6s"><div class="plate"><img src="../media/triangle.jpg" alt="Red, black and ivory geometry"></div></div>
+  </div>
+</section>
+
+<section class="ch" id="work" data-room="#bfe0ec" data-dark="#16323f" data-fg="#17202a" data-fgd="#e8f3f8">
+  <div class="hang swing"><div class="plate"><img src="../media/market.jpg" alt="Mother and child beneath a fruit basket"></div></div>
+  <div><h2>Ìyá Aláje</h2><p>A mother carries her child and the day’s fruit. Painted on fabric, finished with a sculptural wooden handle.</p><small>Story piece</small></div>
+</section>
+<section class="ch" data-room="#23378f" data-dark="#0d1647" data-fg="#f6efe3" data-fgd="#f6efe3">
+  <div class="hang swing"><div class="plate"><img src="../media/spiral.jpg" alt="Cobalt and terracotta spiral tote"></div></div>
+  <div><h2>Current / Countercurrent</h2><p>Spirals in cobalt, rust and ivory, pulling in two directions at once.</p><small>Pattern study</small></div>
+</section>
+<section class="ch" data-room="#e3a02f" data-dark="#4a3210" data-fg="#241709" data-fgd="#f6e6c6">
+  <div class="hang swing"><div class="plate"><img src="../media/street.jpg" alt="Painted street scene"></div></div>
+  <div><h2>Evening on the Street</h2><p>A whole town at dusk, held in a bag you can carry out the door.</p><small>Story piece</small></div>
+</section>
+<section class="ch" data-room="#d91477" data-dark="#560a33" data-fg="#fff7fb" data-fgd="#fff7fb">
+  <div class="hang swing"><div class="plate"><img src="../media/circle.jpg" alt="Concentric circles on pale blue fabric"></div></div>
+  <div><h2>Portal / 01</h2><p>Rings of red, yellow and black opening onto a pale blue sky.</p><small>Pattern study</small></div>
+</section>
+<section class="ch" data-room="#ece4d4" data-dark="#1b1518" data-fg="#1a1420" data-fgd="#f0e9de">
+  <div class="hang swing"><div class="plate"><img src="../media/triangle.jpg" alt="Red, black and ivory geometry"></div></div>
+  <div><h2>Ìná Aláje</h2><p>Sharp triangles in red, black and ivory. The loudest piece in the room.</p><small>Pattern study</small></div>
+</section>
+
+<section class="sec making" id="making">
+  <img src="../media/making.jpg" alt="Studio concept showing hands working on a bag">
+  <div><h3>Made slowly, stitch by stitch.</h3><p>Every piece starts as an idea and ends as an object with its own marks. Three steps, always in this order.</p>
+  <ol><li><b>1</b><div><strong>Imagine</strong><span>Sketches, stories and memories set the direction.</span></div></li><li><b>2</b><div><strong>Shape</strong><span>Fabric is cut, sewn and built into form.</span></div></li><li><b>3</b><div><strong>Paint</strong><span>Colour and detail give each piece its character.</span></div></li></ol></div>
+</section>
+
+<section class="sec makeover" id="makeover">
+  <h3>Bring us fabric you already love.</h3><p>Adoness can transform a piece you own through hand-painted design. Ask the studio what’s possible for your fabric.</p><a class="btn" href="#contact">Ask about a makeover</a>
+</section>
+
+<section class="sec about" id="about">
+  <q>We make fabric works of art to beautify people and their spaces, with a story in every thread.</q>
+  <div><h3 style="font-size:clamp(32px,3.6vw,52px)">Bidemi Odunsi</h3><p>Entrepreneur, fine artist and creative director of Adoness Designs. After training in fashion design and fine art, she began the fabric-art initiative in 2017. Her work draws on dreams, nature, culture and faith, and in 2022 she won a Flourish Africa Women Initiative grant.</p></div>
+</section>
+
+<section class="contact" id="contact"><h3>Find the piece that feels like you.</h3><p>Interested in a featured work, a custom piece or a makeover? Studio contact details will be added here once confirmed with the client.</p></section>
+</main>
+<footer><span>© <span id="y"></span> Adoness Designs</span><span>Portfolio concept. Titles and details to be confirmed with the studio.</span></footer>
+<script>
+const $=s=>[...document.querySelectorAll(s)],room=document.getElementById('room'),root=document.documentElement;
+const dark=matchMedia('(prefers-color-scheme: dark)');document.getElementById('y').textContent=new Date().getFullYear();
+function paint(el){const d=dark.matches&&el.dataset.dark;const bg=d||el.dataset.room;room.style.background=bg;root.style.setProperty('--rbg',bg);
+ const fg=(dark.matches&&el.dataset.fgd)||el.dataset.fg||'#f0e9de';root.style.setProperty('--rf',fg);$('.ch').forEach(c=>c.style.setProperty('--cf',fg))}
+let cur=document.querySelector('[data-room]');
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){cur=e.target;paint(cur);if(e.target.classList.contains('ch')){const h=e.target.querySelector('.swing:not(.in)');h&&h.classList.add('in')}}}),{threshold:.5});
+$('[data-room]:not([hidden])').forEach(s=>io.observe(s));
+new IntersectionObserver(([e])=>{if(e.isIntersecting){room.style.background='transparent';root.style.setProperty('--rbg','var(--bg)');root.style.setProperty('--rf','var(--fg)')}else if(cur)paint(cur)},{threshold:.15}).observe(document.querySelector('.sec.making'));
+dark.addEventListener('change',()=>paint(cur));paint(cur);
+// plates lean toward the pointer
+$('.plate').forEach(p=>{p.addEventListener('pointermove',e=>{const r=p.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;p.style.setProperty('--ry',x*16+'deg');p.style.setProperty('--rx',-y*12+'deg')});p.addEventListener('pointerleave',()=>{p.style.setProperty('--ry','0deg');p.style.setProperty('--rx','0deg')})});
+// a nudge: pointer speed across the hero pushes the hanging pieces
+const st=document.getElementById('stage');let lx=0,last=0;addEventListener('pointermove',e=>{const dx=e.clientX-lx;lx=e.clientX;if(Math.abs(dx)>40&&scrollY<innerHeight*.8&&performance.now()-last>3500&&(last=performance.now()))st.querySelectorAll('.hang').forEach((h,i)=>{if(!matchMedia('(prefers-reduced-motion:reduce)').matches){h.style.animation='none';h.offsetWidth;h.style.animation='swing '+(2.2+i*.3)+'s cubic-bezier(.25,.6,.3,1) both';h.style.animationDirection='normal'}})},{passive:true});
+
+</script>
+</body>
+</html>
